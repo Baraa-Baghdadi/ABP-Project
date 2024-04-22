@@ -28,7 +28,7 @@ function configureRoutes(routesService: RoutesService) {
         name: '::Menu:MyPatient',
         iconClass: 'fas fa-user-alt',
         order: 3,
-        requiredPolicy: 'BookStore.Categories',
+        //requiredPolicy: 'BookStore.Categories',
         layout: eLayoutType.application,
       },
     ]);
