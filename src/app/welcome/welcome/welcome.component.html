@@ -1,0 +1,16 @@
+<div class="dropdown" style="position: fixed;top: 5px;inset-inline-end: 5px;">
+    <button class="btn  dropdown-toggle main-background" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ '::Language' | abpLocalization}}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a *ngFor="let lang of availableLangs" class="dropdown-item" (click)="selectLang(lang)">
+        {{lang}}
+    </a>
+    </div>
+  </div>
+<div class="logIn">
+    <a (click)="logIn()">{{ '::Login' | abpLocalization}}</a>
+</div>
+<div class="signUp">
+    <a routerLink="/register">{{ '::SignUp' | abpLocalization}}</a>
+</div>
