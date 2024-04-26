@@ -1,5 +1,19 @@
-import type { EntityDto } from '@abp/ng.core';
+import type { EntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
 import type { ProviderWorkDay } from '../dawaa24-neo/providers/provider-work-day.enum';
+
+export interface GetProviderInput extends PagedAndSortedResultRequestDto {
+  filterText?: string;
+  email?: string;
+  pharmacyName?: string;
+  pharmacyPhone?: string;
+}
+
+export interface ProviderAddressDto extends EntityDto {
+  latitude: number;
+  longitude: number;
+  address?: string;
+  cityId: number;
+}
 
 export interface ProviderDto {
   id?: string;
@@ -11,18 +25,16 @@ export interface ProviderDto {
   workingTimes: WorkingTimeDto[];
 }
 
+export interface ProviderUpdateDto {
+  concurrencyStamp?: string;
+  workingTimes: WorkingTimeDto[];
+}
+
 export interface WorkingTimeDto extends EntityDto<string> {
   providerId?: string;
   workDay: ProviderWorkDay;
   from?: string;
   to?: string;
-}
-
-export interface ProviderAddressDto extends EntityDto {
-  latitude: number;
-  longitude: number;
-  address?: string;
-  cityId: number;
 }
 
 export interface WorkingTimeForMobileDto {
