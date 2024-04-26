@@ -8,14 +8,25 @@ import { PagedResultDto } from '@abp/ng.core';
   templateUrl: './my-patient.component.html',
   styleUrl: './my-patient.component.scss'
 })
-export class MyPatientComponent implements AfterViewInit {
+export class MyPatientComponent implements AfterViewInit,OnInit {
   @ViewChild('search') search !: ElementRef ;
   title = 'type a head search';
   patientFilter = {} as GetPatientInput;
   patients = { items: [], totalCount: 0 } as PagedResultDto<PatientProviderDto>;
   state = false ;
-  
+
   constructor(private service : PatientService ){}
+
+  ngOnInit() {
+    this.getAllMyPatient();
+  }
+
+  getAllMyPatient(){
+    this.service.getAllPatientsOfProvider(this.patientFilter).subscribe({
+      next : (data:any) => {this.patients = data;}
+    });
+
+  }
 
   ngAfterViewInit(): void {
     fromEvent(this.search.nativeElement,'keyup').pipe(
@@ -27,6 +38,7 @@ export class MyPatientComponent implements AfterViewInit {
         if (value.length == 0) {
          this.state =false ;
          this.patients = { items: [], totalCount: 0 };
+         this.getAllMyPatient();
          return [];
         }
         return this.service.getAllPatientsOfProvider(this.patientFilter);

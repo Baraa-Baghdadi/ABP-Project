@@ -1,4 +1,4 @@
-﻿using Acme.FirstProjet.Providers;
+using Acme.FirstProjet.Providers;
 using Acme.FirstProjet.Providers.Mobile;
 using Dawaa24Neo.ApiResponse;
 using Microsoft.AspNetCore.Authorization;
@@ -45,92 +45,98 @@ namespace Acme.FirstProjet.Patients.Mobile
         }
 
         #region patient address
+        [Authorize]
         public async Task<Response<PatientAddressDto>> CreateAddressAsync(PatientAddressCreateDto input)
-        {
-            var userName = _currentPatient.getUserNameFromToken();
-            var patient = await _patientRepository.GetPatientByMobileNumber(userName);
-            if (patient == null) { throw new UserFriendlyException("Not Found"); }
-            var createPatientAddress = await _patientManager.CreateAddressAsync(patient.Id,
-                input.Name, input.BuildingName, input.AppartmentNumber, input.LandMark, input.Longitude, input.Latitude,
-                input.Address, input.IsDefault);
-            var response = ObjectMapper.Map<PatientAddress, PatientAddressDto>(createPatientAddress);
-            return _apiResponse.Success<PatientAddressDto>(response);
-        }
-
-        public async Task<Response<bool>> DeleteAddress(Guid id)
-        {
-            try
             {
-                return _apiResponse.Success(await _patientManager.DeleteAddressAsync(id));
-            }
-            catch (UserFriendlyException e)
-            {
-                throw new UserFriendlyException(e.Message);
-            }
-        }
-
-        public async Task<Response<PatientAddressDto>> GetAddressAsync(Guid id)
-        {
-            try
-            {
-                var address = await _patientManager.GetAddressAsync(id);
-                return _apiResponse.Success(ObjectMapper.Map<PatientAddress, PatientAddressDto>(address));
-            }
-            catch (UserFriendlyException e)
-            {
-                throw new UserFriendlyException(e.Message);
-            }
-        }
-
-        public async Task<Response<PagedResultDto<PatientAddressDto>>> GetAddressListAsync(GetPatientAddressInput input)
-        {
-            var userName = _currentPatient.getUserNameFromToken();
-            var patient = await _patientRepository.GetPatientByMobileNumber(userName);
-            if (patient == null) throw new UserFriendlyException("Not Found");
-            var (addresses, totalcount) = await _patientAddressRepository.GetUserAddresses(patient.Id, input.Name,
-                input.AppartmentNumber, input.BuildingName, input.Longitude, input.Latitude, input.LandMark, input.Address,
-                input.Type,
-                input.SkipCount, input.MaxResultCount, input.Sorting);
-            var response = ObjectMapper.Map<List<PatientAddress>, List<PatientAddressDto>>(addresses);
-            var data = new PagedResultDto<PatientAddressDto>
-            {
-                TotalCount = totalcount,
-                Items = response
-            };
-            return _apiResponse.Success<PagedResultDto<PatientAddressDto>>(data);
-        }
-        public async Task<Response<bool>> SetAddressAsDefault(Guid addressId)
-        {
-
-            try
-            {
-                return _apiResponse.Success(await _patientManager.SetAddressAsDefault(addressId));
-            }
-            catch (UserFriendlyException e)
-            {
-                throw new UserFriendlyException(e.Message);
-            }
-        }
-
-        public async Task<Response<PatientAddressDto>> UpdateAddressAsync(PatientAddressUpdateDto input)
-        {
-            try
-            {
-                var patientAddress = await _patientManager.UpdateAddressAsync(input.Id,
+                var userName = _currentPatient.getUserNameFromToken();
+                var patient = await _patientRepository.GetPatientByMobileNumber(userName);
+                if (patient == null) { throw new UserFriendlyException("Not Found"); }
+                var createPatientAddress = await _patientManager.CreateAddressAsync(patient.Id,
                     input.Name, input.BuildingName, input.AppartmentNumber, input.LandMark, input.Longitude, input.Latitude,
-                    input.Address, input.IsDefault, input.Type);
-                return _apiResponse.Success(ObjectMapper.Map<PatientAddress, PatientAddressDto>(patientAddress));
+                    input.Address, input.IsDefault);
+                var response = ObjectMapper.Map<PatientAddress, PatientAddressDto>(createPatientAddress);
+                return _apiResponse.Success<PatientAddressDto>(response);
+            }
 
-            }
-            catch (UserFriendlyException e)
-            {
-                throw new UserFriendlyException(e.Message);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(e.Message);
-            }
-        }
+      [Authorize]
+      public async Task<Response<bool>> DeleteAddress(Guid id)
+          {
+              try
+              {
+                  return _apiResponse.Success(await _patientManager.DeleteAddressAsync(id));
+              }
+              catch (UserFriendlyException e)
+              {
+                  throw new UserFriendlyException(e.Message);
+              }
+          }
+
+      [Authorize]
+      public async Task<Response<PatientAddressDto>> GetAddressAsync(Guid id)
+          {
+              try
+              {
+                  var address = await _patientManager.GetAddressAsync(id);
+                  return _apiResponse.Success(ObjectMapper.Map<PatientAddress, PatientAddressDto>(address));
+              }
+              catch (UserFriendlyException e)
+              {
+                  throw new UserFriendlyException(e.Message);
+              }
+          }
+
+      [Authorize]
+      public async Task<Response<PagedResultDto<PatientAddressDto>>> GetAddressListAsync(GetPatientAddressInput input)
+          {
+              var userName = _currentPatient.getUserNameFromToken();
+              var patient = await _patientRepository.GetPatientByMobileNumber(userName);
+              if (patient == null) throw new UserFriendlyException("Not Found");
+              var (addresses, totalcount) = await _patientAddressRepository.GetUserAddresses(patient.Id, input.Name,
+                  input.AppartmentNumber, input.BuildingName, input.Longitude, input.Latitude, input.LandMark, input.Address,
+                  input.Type,
+                  input.SkipCount, input.MaxResultCount, input.Sorting);
+              var response = ObjectMapper.Map<List<PatientAddress>, List<PatientAddressDto>>(addresses);
+              var data = new PagedResultDto<PatientAddressDto>
+              {
+                  TotalCount = totalcount,
+                  Items = response
+              };
+              return _apiResponse.Success<PagedResultDto<PatientAddressDto>>(data);
+          }
+      [Authorize]
+      public async Task<Response<bool>> SetAddressAsDefault(Guid addressId)
+          {
+
+              try
+              {
+                  return _apiResponse.Success(await _patientManager.SetAddressAsDefault(addressId));
+              }
+              catch (UserFriendlyException e)
+              {
+                  throw new UserFriendlyException(e.Message);
+              }
+          }
+
+      [Authorize]
+      public async Task<Response<PatientAddressDto>> UpdateAddressAsync(PatientAddressUpdateDto input)
+          {
+              try
+              {
+                  var patientAddress = await _patientManager.UpdateAddressAsync(input.Id,
+                      input.Name, input.BuildingName, input.AppartmentNumber, input.LandMark, input.Longitude, input.Latitude,
+                      input.Address, input.IsDefault, input.Type);
+                  return _apiResponse.Success(ObjectMapper.Map<PatientAddress, PatientAddressDto>(patientAddress));
+
+              }
+              catch (UserFriendlyException e)
+              {
+                  throw new UserFriendlyException(e.Message);
+              }
+              catch (Exception e)
+              {
+                  throw new UserFriendlyException(e.Message);
+              }
+          }
         #endregion
 
         #region Patiant Provider
