@@ -4,9 +4,8 @@ export interface PharmacyInfoDto {
   id?: string;
   name?: string;
   phone?: string;
-  image?: string;
-  longitude?: string;
-  latitude?: string;
+  longitude: number;
+  latitude: number;
   address?: string;
   addingDate?: string;
   workingTimes: WorkingTimeForMobileDto[];

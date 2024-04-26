@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Acme.FirstProjet.MultiTenancy;
 using Volo.Abp.AuditLogging;
@@ -60,7 +60,7 @@ public class FirstProjetDomainModule : AbpModule
 
         Configure<AbpMultiTenancyOptions>(options =>
         {
-            options.IsEnabled = MultiTenancyConsts.IsEnabled;
+          options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
 
         // This Code For read files in send email

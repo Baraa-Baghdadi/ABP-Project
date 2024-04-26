@@ -1,4 +1,4 @@
-﻿using Acme.FirstProjet.EntityFrameworkCore;
+using Acme.FirstProjet.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

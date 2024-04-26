@@ -1,4 +1,4 @@
-﻿using Acme.FirstProjet.Otps;
+using Acme.FirstProjet.Otps;
 using Acme.FirstProjet.Patients;
 using Acme.FirstProjet.SMS;
 using Dawaa24Neo.ApiResponse;
@@ -67,8 +67,8 @@ namespace Acme.FirstProjet.PatientAuth
                 oldOtp.IsUsed = false;
                 await _otpRepository.UpdateAsync(oldOtp);
             }
-            var msgIsSend = await _smsSender.SendSmsMessage(input.CountryCode+input.MobileNumber,verficationCode);
-            if (!msgIsSend) throw new UserFriendlyException("Error in send message");
+            //var msgIsSend = await _smsSender.SendSmsMessage(input.CountryCode+input.MobileNumber,verficationCode);
+            //if (!msgIsSend) throw new UserFriendlyException("Error in send message");
             return _apiResponse.Success(true);
         }
         #endregion
@@ -81,7 +81,7 @@ namespace Acme.FirstProjet.PatientAuth
             var patient = await _patientRepository.FindAsync(p => p.MobileNumber == input.MobileNumber && p.CountryCode == input.CountryCode);
             var username = $"{input.CountryCode + input.MobileNumber}";
             var newEmail = $"{input.CountryCode + input.MobileNumber}@email";
-            var password = _hashPassword(input.CountryCode + input.MobileNumber);
+             var password = "P@ssw0rd"; //_hashPassword(input.CountryCode + input.MobileNumber); For any one know password
             if (patient is null)
             {
                 string customPatientId = _generateCustomPatientId();

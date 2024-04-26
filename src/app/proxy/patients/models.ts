@@ -1,6 +1,21 @@
 import type { EntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
-import type { PatientAddressType } from '../dawaa24-neo/enums/patient-address-type.enum';
 import type { PatientAddingType } from '../dawaa24-neo/patients/patient-adding-type.enum';
+import type { PatientAddressType } from '../dawaa24-neo/enums/patient-address-type.enum';
+
+export interface GetPatientInput extends PagedAndSortedResultRequestDto {
+  filterText?: string;
+  mobileNumber?: string;
+  countryCode?: string;
+}
+
+export interface PatientProviderDto extends EntityDto<string> {
+  patientId?: string;
+  providerId?: string;
+  addingDate?: string;
+  mobileNumber?: string;
+  countryCode?: string;
+  addingType: PatientAddingType;
+}
 
 export interface GetPatientAddressInput extends PagedAndSortedResultRequestDto {
   name?: string;
@@ -26,6 +41,7 @@ export interface PatientAddressCreateDto {
 }
 
 export interface PatientAddressDto extends EntityDto<string> {
+  patientId?: string;
   name?: string;
   buildingName?: string;
   appartmentNumber?: string;
@@ -51,20 +67,5 @@ export interface PatientAddressUpdateDto extends EntityDto<string> {
 
 export interface PatientProviderCreateDto {
   providerId?: string;
-  addingType: PatientAddingType;
-}
-
-export interface GetPatientInput extends PagedAndSortedResultRequestDto {
-  filterText?: string;
-  mobileNumber?: string;
-  countryCode?: string;
-}
-
-export interface PatientProviderDto extends EntityDto<string> {
-  patientId?: string;
-  providerId?: string;
-  addingDate?: string;
-  mobileNumber?: string;
-  countryCode?: string;
   addingType: PatientAddingType;
 }
