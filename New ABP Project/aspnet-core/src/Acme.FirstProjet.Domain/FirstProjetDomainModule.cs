@@ -30,7 +30,8 @@ namespace Acme.FirstProjet;
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpSettingManagementDomainModule),
     typeof(AbpTenantManagementDomainModule),
-    typeof(AbpEmailingModule)
+    typeof(AbpEmailingModule),
+    typeof(AbpMultiTenancyModule)
 )]
 public class FirstProjetDomainModule : AbpModule
 {
@@ -58,11 +59,6 @@ public class FirstProjetDomainModule : AbpModule
             options.Languages.Add(new LanguageInfo("es", "es", "Español"));
         });
 
-        Configure<AbpMultiTenancyOptions>(options =>
-        {
-          options.IsEnabled = MultiTenancyConsts.IsEnabled;
-        });
-
         // This Code For read files in send email
 
         Configure<AbpVirtualFileSystemOptions>(options =>
@@ -75,8 +71,13 @@ public class FirstProjetDomainModule : AbpModule
             options.FileSets.AddEmbedded<FirstProjetDomainModule>("FirstProjet");
         });
 
+        Configure<AbpMultiTenancyOptions>(options =>
+        {
+          options.IsEnabled = MultiTenancyConsts.IsEnabled;
+        });
+
 #if DEBUG
-       // context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
+    // context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif
-    }
+  }
 }

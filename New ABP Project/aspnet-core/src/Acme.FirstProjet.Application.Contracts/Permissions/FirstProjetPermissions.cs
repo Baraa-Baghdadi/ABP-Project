@@ -1,4 +1,4 @@
-﻿namespace Acme.FirstProjet.Permissions;
+namespace Acme.FirstProjet.Permissions;
 
 public static class FirstProjetPermissions
 {
@@ -15,9 +15,16 @@ public static class FirstProjetPermissions
 
     }
 
-    public static class Providers
-    {
-        public const string Default = GroupName + ".Providers";
+  public static class Patients
+  {
+    public const string Default = GroupName + ".Patients";
 
-    }
+  }
+
+  public static class Providers
+  {
+    public const string Default = GroupName + ".Providers";
+    public const string downloadQrCode = GroupName + ".Providers.downloadQrCode";
+
+  }
 }

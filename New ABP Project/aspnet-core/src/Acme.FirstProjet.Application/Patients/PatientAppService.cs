@@ -1,3 +1,4 @@
+using Acme.FirstProjet.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,9 @@ namespace Acme.FirstProjet.Patients
 
 
 
-        [Authorize]
-        public async Task<PagedResultDto<PatientProviderDto>> GetAllPatientsOfProviderAsync(GetPatientInput input)
-        {
+    [Authorize(FirstProjetPermissions.Dashboard.Tenant)]
+    public async Task<PagedResultDto<PatientProviderDto>> GetAllPatientsOfProviderAsync(GetPatientInput input)
+    {
             var totalCount = await _patientProviderRepository.GetCountAsync(input.FilterText, input.MobileNumber, input.CountryCode);
             var items = await _patientProviderRepository.GetListAsync(input.FilterText, input.MobileNumber, input.CountryCode,
                 input.Sorting, input.MaxResultCount, input.SkipCount);
@@ -36,7 +37,7 @@ namespace Acme.FirstProjet.Patients
               TotalCount = totalCount,
               Items = ObjectMapper.Map<List<PatientProvider>, List<PatientProviderDto>>(items)
             };
-        }
+    }
 
         [Authorize]
         public async Task<PatientProviderDto> GetPatientsOfProviderAsync(Guid id)
