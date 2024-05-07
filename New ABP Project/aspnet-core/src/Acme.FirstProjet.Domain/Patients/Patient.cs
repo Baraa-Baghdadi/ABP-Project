@@ -1,4 +1,5 @@
-﻿using System;
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,9 @@ namespace Acme.FirstProjet.Patients
         public string PatientId { get; set; }
         public virtual string?  MobileNumber { get; set; }
         public virtual string?  CountryCode { get; set; }
+
+        [CanBeNull]
+        public virtual string? FullMobileNumber { get; set; } 
         public ICollection<PatientAddress>? PatientAddresses { get; set; }
         public ICollection<PatientProvider>? PatientProviders { get; set; }
 
@@ -23,6 +27,7 @@ namespace Acme.FirstProjet.Patients
             MobileNumber = mobileNumber;
             CountryCode = countryCode;
             PatientId = patientId;
+            FullMobileNumber = CountryCode + MobileNumber;
         }
 
     }

@@ -62,7 +62,7 @@ namespace Acme.FirstProjet.Patients
         )
         {
             return query
-                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Patient.MobileNumber!.Contains(filterText!) || e.Patient.CountryCode!.Contains(filterText!))
+                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Patient.MobileNumber!.Contains(filterText!) || e.Patient.CountryCode!.Contains(filterText!) || e.Patient.FullMobileNumber!.Contains(filterText!))
                 .WhereIf(!string.IsNullOrWhiteSpace(mobileNumber), e => e.Patient.MobileNumber!.Contains(mobileNumber!))
                 .WhereIf(!string.IsNullOrWhiteSpace(countryCode), e => e.Patient.CountryCode!.Contains(countryCode!));
         }
