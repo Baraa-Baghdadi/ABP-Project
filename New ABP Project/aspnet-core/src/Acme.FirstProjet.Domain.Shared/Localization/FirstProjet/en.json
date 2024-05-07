@@ -7,6 +7,8 @@
     "Login": "Login",
     "SignUp": "SignUp",
     "Menu:MyPatient": "My Patient",
-    "Language": "Language"
+    "Language": "Language",
+    "Enum:addingType:0": "Scan",
+    "Enum:addingType:1": "Manual"
   }
 }

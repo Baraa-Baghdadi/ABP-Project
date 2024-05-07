@@ -29,6 +29,9 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
+using Volo.Abp.MultiTenancy;
+using Volo.Abp.Data;
 
 namespace Acme.FirstProjet;
 
@@ -36,6 +39,7 @@ namespace Acme.FirstProjet;
     typeof(FirstProjetHttpApiModule),
     typeof(AbpAutofacModule),
     typeof(AbpAspNetCoreMultiTenancyModule),
+    typeof(AbpAspNetCoreMvcUiMultiTenancyModule),
     typeof(FirstProjetApplicationModule),
     typeof(FirstProjetEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
@@ -80,7 +84,7 @@ public class FirstProjetHttpApiHostModule : AbpModule
         ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
-    }
+  }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
@@ -115,7 +119,7 @@ public class FirstProjetHttpApiHostModule : AbpModule
             options.Applications["Angular"].RootUrl = configuration["App:ClientUrl"];
             options.Applications["Angular"].Urls[AccountUrlNames.PasswordReset] = "account/reset-password";
         });
-    }
+  }
 
     private void ConfigureVirtualFileSystem(ServiceConfigurationContext context)
     {

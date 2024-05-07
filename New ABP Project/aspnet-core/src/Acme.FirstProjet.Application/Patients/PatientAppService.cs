@@ -2,14 +2,10 @@ using Acme.FirstProjet.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
-using Volo.Abp.MultiTenancy;
 
 namespace Acme.FirstProjet.Patients
 {
@@ -39,11 +35,12 @@ namespace Acme.FirstProjet.Patients
             };
     }
 
-        [Authorize]
-        public async Task<PatientProviderDto> GetPatientsOfProviderAsync(Guid id)
-            {
-                var patientProvider = await _patientProviderRepository.GetAsync(id);
-                return ObjectMapper.Map<PatientProvider,PatientProviderDto>(patientProvider);
-            }
-        }
+      [Authorize(FirstProjetPermissions.Dashboard.Tenant)]
+      public async Task<PatientProviderDto> GetPatientsOfProviderAsync(Guid id)
+      {
+            var patientProvider = await _patientProviderRepository.GetAsync(id);
+            return ObjectMapper.Map<PatientProvider,PatientProviderDto>(patientProvider);
+      }
+
+  }
 }

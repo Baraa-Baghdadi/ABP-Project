@@ -1,4 +1,4 @@
-﻿namespace Acme.FirstProjet.MultiTenancy;
+namespace Acme.FirstProjet.MultiTenancy;
 
 public static class MultiTenancyConsts
 {

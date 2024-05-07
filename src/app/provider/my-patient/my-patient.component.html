@@ -36,7 +36,11 @@
           </ngx-datatable-column>
           <ngx-datatable-column [name]="'::countryCode' | abpLocalization" prop="countryCode"></ngx-datatable-column>
           <ngx-datatable-column [name]="'::mobileNumber' | abpLocalization" prop="mobileNumber"></ngx-datatable-column>
-          <ngx-datatable-column [name]="'::addingType' | abpLocalization" prop="addingType"></ngx-datatable-column>
+          <ngx-datatable-column [name]="'::addingType' | abpLocalization" prop="addingType">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{'::Enum:addingType:' + row.addingType | abpLocalization}}
+            </ng-template>
+          </ngx-datatable-column>
         </ngx-datatable>
     </div>
 </div>

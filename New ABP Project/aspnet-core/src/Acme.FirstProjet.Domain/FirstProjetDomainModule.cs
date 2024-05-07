@@ -16,6 +16,7 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using QuestPDF.Infrastructure;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.MultiTenancy.Localization;
 
 namespace Acme.FirstProjet;
 
@@ -30,16 +31,22 @@ namespace Acme.FirstProjet;
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpSettingManagementDomainModule),
     typeof(AbpTenantManagementDomainModule),
-    typeof(AbpEmailingModule),
-    typeof(AbpMultiTenancyModule)
-)]
+    typeof(AbpEmailingModule)
+  )]
 public class FirstProjetDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpLocalizationOptions>(options =>
+
+    Configure<AbpMultiTenancyOptions>(options =>
+    {
+      options.IsEnabled = MultiTenancyConsts.IsEnabled;
+    });
+
+    Configure<AbpLocalizationOptions>(options =>
         {
-            options.Languages.Add(new LanguageInfo("ar", "ar", "العربية", "ae"));
+
+          options.Languages.Add(new LanguageInfo("ar", "ar", "العربية", "ae"));
             options.Languages.Add(new LanguageInfo("cs", "cs", "Čeština"));
             options.Languages.Add(new LanguageInfo("en", "en", "English", "gb"));
             options.Languages.Add(new LanguageInfo("en-GB", "en-GB", "English (UK)"));
@@ -69,11 +76,6 @@ public class FirstProjetDomainModule : AbpModule
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
             options.FileSets.AddEmbedded<FirstProjetDomainModule>("FirstProjet");
-        });
-
-        Configure<AbpMultiTenancyOptions>(options =>
-        {
-          options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
 
 #if DEBUG

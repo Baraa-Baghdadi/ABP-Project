@@ -46,9 +46,12 @@ namespace Acme.FirstProjet.Patients
 
         public async Task<long> GetCountAsync(string? filterText = null, string? mobileNumber = null, string? countryCode = null, CancellationToken cancellationToken = default)
         {
-            var query = (await GetQueryableAsync()).Include("Patient").Include("Provider");
-            query = ApplyFilterForPortal(query, filterText, mobileNumber, countryCode);
-            return (await query.ToListAsync()).LongCount();
+        using (_dataFilter.Enable<IMultiTenant>())
+        {
+          var query = (await GetQueryableAsync()).Include("Patient").Include("Provider");
+          query = ApplyFilterForPortal(query, filterText, mobileNumber, countryCode);
+          return (await query.ToListAsync()).LongCount();
+        }
         }
 
         protected virtual IQueryable<PatientProvider> ApplyFilterForPortal(

@@ -1,4 +1,4 @@
-﻿using Acme.Basket.Baskets;
+using Acme.Basket.Baskets;
 using Acme.FirstProjet.Carts;
 using Acme.FirstProjet.Otps;
 using Acme.FirstProjet.Patients;
@@ -215,6 +215,9 @@ public class FirstProjetDbContext :
                 b.ToTable(Dawaa24NeoConsts.DbTablePrefix + "VerficationCodes", Dawaa24NeoConsts.DbSchema);
                 b.ConfigureByConvention();
             });
-        }
+
+            // For enable MultiTenancy in this table:
+            builder.Entity<PatientProvider>().HasQueryFilter(e => e.Provider!.TenantId == CurrentTenant.Id);
+  }
 }
 
